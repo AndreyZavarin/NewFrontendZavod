@@ -1,0 +1,15 @@
+# dependencies
+node_modules
+
+static
+service
+
+.DS_Store
+npm-debug.log
+version
+
+.idea
+*.iml
+
+*-compiled.js
+*-compiled.js.map

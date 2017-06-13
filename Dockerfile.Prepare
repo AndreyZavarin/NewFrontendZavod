@@ -1,0 +1,8 @@
+FROM dev.jetmoney.ru/jm-node:6.5.0
+
+WORKDIR /src
+
+COPY src ./src
+COPY .babelrc index-template.html index-template-with-metrics.html package.json server.js webpack.production.js run* ./
+
+RUN chmod +x run-build.sh

@@ -1,0 +1,16 @@
+.textLeft{
+    text-align: left;
+}
+.textRight {
+    text-align: right;
+}
+.left-nav-bar {
+    margin-top: 15px;
+}
+.left-nav-bar li a{
+    color: #fbffff;
+
+}
+.active-left-nav-bar {
+    background: #f3f5f5;
+}

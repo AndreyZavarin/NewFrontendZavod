@@ -1,0 +1,62 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "indent": [
+      2
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "radix": ["error", "as-needed"],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "react/no-unused-prop-types": ["warn"],
+    "react/self-closing-comp": ["error", {
+      "component": true,
+      "html": false
+    }],
+    "max-len": [
+      0,
+      120
+    ],
+    "quote-props": ["warn"],
+    "arrow-body-style": "off",
+    "arrow-parens": "off",
+    "eol-last": "off",
+    "consistent-return": "off",
+    "prefer-template": "off",
+    "sort-imports": "off",
+    "jsx-a11y/img-has-alt": "warn",
+    "import/prefer-default-export": "off",
+    "object-curly-spacing": "off",
+    "operator-assignment": "off",
+    "no-plusplus": "off",
+    "no-case-declarations": "off",
+    "no-underscore-dangle": "off",
+    "global-require": "off",
+    "react/forbid-prop-types": "off",
+    "react/jsx-closing-bracket-location": "off",
+    "react/jsx-space-before-closing": "off",
+    "react/no-unescaped-entities": "off",
+    "quotes": "off"
+  }
+}
