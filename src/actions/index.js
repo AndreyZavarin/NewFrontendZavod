@@ -34,9 +34,11 @@ function requestClientList() {
 
 export const RECEIVE_CLIENT_LIST = 'RECEIVE_CLIENT_LIST'
 function receiveClientList(json) {
+    console.log("-------------")
+    console.log(json)
     return {
         type: RECEIVE_CLIENT_LIST,
-        clientList: json.content
+        clientList: json
     }
 }
 
@@ -47,17 +49,16 @@ export const getClientList = () => {
         return get('client/all', token)
             .then((json) => {
           console.log(json)
-               const newJson =  dispatch(generationInfoClient(json))
-
-
+               const newJson =  generationInfoClient(json)
                 dispatch(receiveClientList(newJson))
             })
     }
 }
 
-export const generationInfoClient = (json) => {
+const generationInfoClient = (json) => {
   const clientList = json.content
   let newJson = json.content
+
   for(let i = 0; i < clientList.length; i++){
       if(!clientList[i].phoneNumber){
           let phoneNumber = '89'
@@ -90,7 +91,7 @@ export const generationInfoClient = (json) => {
           newJson[i].subState = subState
       }
   }
-
+    console.log(newJson )
   return newJson
 }
 

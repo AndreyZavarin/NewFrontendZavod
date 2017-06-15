@@ -7,14 +7,56 @@ import VMasker from '../../scripts/vanilla-masker.min'
 import WaitingForData from '../../components/WaitingForData'
 import Address from '../../components/Address'
 
-const visitStatus = {
-    IDLE: 'Действующий',
-    IN_PROGRESS: 'Ожидающий',
-    EXPIRED: 'Истекающий',
-    WARNING: 'Внимание',
-    OVERDUE: 'Просрочен',
-    PAUSED: 'Заморожен'
+const StatusAbonements = ({status}) => {
+    console.log(status)
+
+    const visitStatus = {
+        IDLE:{
+            text: 'Действующий',
+            style: 'label label-success'
+        },
+        IN_PROGRESS: {
+            text: 'Ожидающий',
+            style: 'label label-primary'
+        },
+        EXPIRED: {
+            text: 'Истекающий',
+            style: 'label label-warning',
+        },
+        WARNING: {
+            text: 'Внимание',
+            style: 'label label-important'
+        },
+        OVERDUE: {
+            text: 'Просрочен',
+            style: 'label label-danger'
+        },
+        PAUSED: {
+            text: 'Заморожен',
+            style: 'label label-info'
+        }
+    }
+    return <h4><span style={{width: '110px', display: 'block'}} className={visitStatus[status].style}>{visitStatus[status].text}</span></h4>
 }
+
+const ActionAboveClient = ({}) => {
+    return <div className="btn-group">
+        <button type="button" className=" btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"><span className="caret"></span></button>
+        <ul className="dropdown-menu" role="menu">
+            <li><a href="#">Посещение</a></li>
+            <li><a href="#">Заверщение</a></li>
+            <li><a href="#">Покупка товара</a></li>
+            <li><a href="#">Покупка абонемента</a></li>
+            <li><a href="#">Продление абонемента</a></li>
+            <li><a href="#">Заморозить</a></li>
+            <li className="divider"></li>
+            <li><a href="#">Открыть</a></li>
+            <li><a href="#">Редактировать</a></li>
+        </ul>
+    </div>
+}
+
+
 class Clients extends Component {
 
     componentDidMount() {
@@ -22,32 +64,28 @@ class Clients extends Component {
     }
 
     render() {
-      //TODO Сделать когда идет загрузка
-        // if (isFetching || !hasData) {
-        //     return <WaitingForData />
-        // }
 
-        // const {allClientsList} = this.props.clients
-        // let clients = [];
-        // if(allClientsList) {
-        //     for (let i = 0; i < allClientsList.length; i++) {
-        //         const clientRow = <tr key={allClientsList[i].id}>
-        //             <td>
-        //                 <ActionAboveClient
-        //                     updateActivePage = {this.props.updateActivePage}
-        //                 />
-        //             </td>
-        //             <td><input type="checkbox"/></td>
-        //             <td><a href="#" onClick={this.props.getSingleClient.bind(this, allClientsList[i].id)}>{allClientsList[i].lastName} {allClientsList[i].firstName} {allClientsList[i].middleName}</a></td>
-        //             <td>{testMas[i][0]}</td>
-        //             <td>{testMas[i][1]}</td>
-        //             <td>{testMas[i][2]}</td>
-        //             <td>{testMas[i][3]}</td>
-        //             <td><StatusAbonements status={testMas[i][4]}/></td>
-        //         </tr>
-        //         clients.push(clientRow);
-        //     }
-        // }
+        const {clientsList} = this.props.clients
+        let clients = [];
+        if(clientsList) {
+            for (let i = 0; i < clientsList.length; i++) {
+                const clientRow = <tr key={clientsList[i].id}>
+                    <td>
+                        <ActionAboveClient
+                            updateActivePage = {this.props.updateActivePage}
+                        />
+                    </td>
+                    <td><input type="checkbox"/></td>
+                    <td><a href="#">{clientsList[i].lastName} {clientsList[i].firstName} {clientsList[i].middleName}</a></td>
+                    <td>{clientsList[i].phoneNumber}</td>
+                    <td>{clientsList[i].email}</td>
+                    <td>{clientsList[i].visitStatus}</td>
+                    <td>{clientsList[i].numberSubscription[clientsList[i].numberSubscription.length - 1]}</td>
+                    <td><StatusAbonements status={clientsList[i].subState[clientsList[i].subState.length - 1]}/></td>
+                </tr>
+                clients.push(clientRow);
+            }
+        }
 
         return (
             <div>
@@ -78,7 +116,7 @@ class Clients extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {/*{allClientsList?clients:''}*/}
+                    {clientsList?clients:''}
                     </tbody>
                 </table>
             </div>
@@ -89,22 +127,14 @@ class Clients extends Component {
 
 Clients.propTypes = {
     dispatch: PropTypes.func,
-    isFetching: PropTypes.bool.isRequired,
-    // hasData: PropTypes.bool.isRequired,
-    // client: PropTypes.object,
 }
 
 const mapStateToProps = (state) => {
-    const clients = state.clients
-    // const info = state.info
     return {
-        // isFetching: info.isFetching,
-        // hasData: info.has,
-        // client: info.client,
+        clients: state.clients
     }
 }
 
 export default connect(
     mapStateToProps
 )(Clients)
-
